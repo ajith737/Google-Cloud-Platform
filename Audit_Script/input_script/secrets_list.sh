@@ -1,0 +1,14 @@
+echo "ProjectId,ProjectName,SecretName,Created,ReplicationPolicy,Locations"                                                                                                                                                                      
+for PROJECT in $(\                                                                                                                                                                                                                         
+        gcloud projects list \                                                                                                                                                                                                             
+        --format="value(projectId)")                                                                                                                                                                                                       
+do                                                                                                                                                                                                                                         
+        PROJECTNAME=$(gcloud projects list --format="csv[no-heading](name)" --filter="projectId=${PROJECT}")                                                                                                                               
+        gcloud secrets list --project=${PROJECT} --format="csv[no-heading](NAME,CREATED,REPLICATION_POLICY,LOCATION)" --quiet > ./temp/secrets_list.txt                                                                                                  
+                                                                                                                                                                                                                                           
+        cat ./temp/secrets_list.txt | while read LINE                                                                                                                                                                                   
+        do                                                                                                                                                                                                                                 
+                echo "${PROJECT},${PROJECTNAME},${LINE}"                                                                                                                                                                                   
+        done                                                                                                                                                                                                                               
+done
+

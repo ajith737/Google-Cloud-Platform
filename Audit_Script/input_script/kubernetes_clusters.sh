@@ -1,0 +1,14 @@
+echo "ProjectId,ProjectName,ClusterName,Location,MasterVersion,MasterIp,MasterType,NodeVersion,NumNodes,Status"                                                                                                                                                                            
+for PROJECT in $(\                                                                                                                                                                                                                         
+        gcloud projects list \                                                                                                                                                                                                             
+        --format="value(projectId)")                                                                                                                                                                                                       
+do                                                                                                                                                                                                                                         
+        PROJECTNAME=$(gcloud projects list --format="csv[no-heading](name)" --filter="projectId=${PROJECT}")                                                                                                                               
+        gcloud container clusters list --project=${PROJECT} --format="csv[no-heading](NAME,LOCATION,MASTER_VERSION,MASTER_IP,MACHINE_TYPE,NODE_VERSION,NUM_NODES,STATUS)" --quiet > ./temp/kubernetes_clusters.txt                                                                                                  
+                                                                                                                                                                                                                                           
+        cat ./temp/kubernetes_clusters.txt | while read LINE                                                                                                                                                                                   
+        do                                                                                                                                                                                                                                 
+                echo "${PROJECT},${PROJECTNAME},${LINE}"                                                                                                                                                                                   
+        done                                                                                                                                                                                                                               
+done
+
