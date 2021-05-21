@@ -1,14 +1,15 @@
 echo "ProjectId,ProjectName,SecretName,Created,ReplicationPolicy,Locations"                                                                                                                                                                      
+# get each projectId
 for PROJECT in $(\                                                                                                                                                                                                                         
         gcloud projects list \                                                                                                                                                                                                             
         --format="value(projectId)")                                                                                                                                                                                                       
 do                                                                                                                                                                                                                                         
-        PROJECTNAME=$(gcloud projects list --format="csv[no-heading](name)" --filter="projectId=${PROJECT}")                                                                                                                               
-        gcloud secrets list --project=${PROJECT} --format="csv[no-heading](NAME,CREATED,REPLICATION_POLICY,LOCATION)" --quiet > ./temp/secrets_list.txt                                                                                                  
+        PROJECTNAME=$(gcloud projects list --format="csv[no-heading](name)" --filter="projectId=${PROJECT}")     #get projectName                                                                                                                          
+        gcloud secrets list --project=${PROJECT} --format="csv[no-heading](NAME,CREATED,REPLICATION_POLICY,LOCATION)" --quiet > ./temp/secrets_list.txt     #get secretlist and save in temp folder                                                                                             
                                                                                                                                                                                                                                            
         cat ./temp/secrets_list.txt | while read LINE                                                                                                                                                                                   
         do                                                                                                                                                                                                                                 
-                echo "${PROJECT},${PROJECTNAME},${LINE}"                                                                                                                                                                                   
+                echo "${PROJECT},${PROJECTNAME},${LINE}"   ##projectId,project name and secrets list that was stored in temp folder                                                                                                                                                                                
         done                                                                                                                                                                                                                               
 done
 
