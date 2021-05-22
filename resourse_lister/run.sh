@@ -5,9 +5,8 @@ chmod +x ./input_Scripts/ > ./temp/files.txt
 #read each file in input_script and execute it then, put the script result in output directory in csv format
 ls ./temp/files.txt | while read LINE
 do
-	for WORD in $LINE; 
-	do
-		WORD1=$(echo ${WORD} | awk '{ print substr( $0, 1, length($0)-3 )}`)
+	for WORD in $LINE; do
+		WORD1=$(echo ${WORD} | awk '{ print substr( $0, 1, length($0)-3) }')
 		./input_script/${WORD} > ./output/${WORD1}.csv
 	done
 done
