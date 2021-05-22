@@ -1,5 +1,5 @@
 echo "ProjectId,ClusterName,NodePoolName,MachineType,diskSize,NodeVerision"
-#get each project
+#get each projectId
 for PROJECT in $(\
 	gcloud projects list \
 	--format="value(projectId)")

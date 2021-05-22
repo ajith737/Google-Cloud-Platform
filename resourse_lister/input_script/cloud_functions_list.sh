@@ -1,5 +1,5 @@
 echo "ProjectId,ProjectName,FunctionName,Status,Trigger,Region"
-#get each project
+#get each projectId
 for PROJECT in $(\
 	gcloud projects list \
 	--format="value(projectId)")
