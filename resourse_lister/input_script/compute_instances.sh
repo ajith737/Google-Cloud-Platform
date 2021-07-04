@@ -8,6 +8,6 @@ do
 	
 	cat ./temp/compute_instances.txt | while read LINE
 	do
-		echp "${PROJECT},${LINE}" #print projectId and compute instance details stored in temp directory.
+		echo "${PROJECT},${LINE}" #print projectId and compute instance details stored in temp directory.
 	done
 done
